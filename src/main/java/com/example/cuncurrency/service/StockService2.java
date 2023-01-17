@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
  * ? 실제로 락을 걸어서 정합성을 맞추는 방법 exclusive lock(쓰기 잠금)을 걸게 되면 다른 트랜잭션에서는 lock이 해제되기전에
  * ? 데이터를 가져갈 수 없습니다.
  * ? 데드락이 걸릴 수 있기 때문에 주의해서 사용해야 합니다.
- * * 충돌이 일어난다면 Optimistic Lock보다 성능이 좋을 수 있습니다.
+ * * 충돌이 자주 일어난다면 Optimistic Lock보다 성능이 좋을 수 있습니다.
  * * 데이터 정합성이 어느정도 보장될 수 있습니다.
  * * 별도의 Lock을 잡기때문에 성능 저하가 발생합니다.
  */
