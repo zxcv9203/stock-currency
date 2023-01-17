@@ -1,7 +1,6 @@
 package com.example.cuncurrency.facade;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import com.example.cuncurrency.domain.stock.Stock;
 import com.example.cuncurrency.repository.StockRepository;
 import java.util.concurrent.CountDownLatch;
@@ -16,8 +15,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class RedissonLockStockFacadeTest {
+
     @Autowired
     private RedissonLockStockFacade redissonLockStockFacade;
+
     @Autowired
     private StockRepository stockRepository;
 
