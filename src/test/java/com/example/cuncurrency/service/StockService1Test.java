@@ -3,8 +3,6 @@ package com.example.cuncurrency.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import com.example.cuncurrency.domain.stock.Stock;
 import com.example.cuncurrency.repository.StockRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -14,12 +12,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
-class StockServiceTest {
+class StockService1Test {
     @Autowired
-    private StockService stockService;
+    private StockService1 stockService1;
 
     @Autowired
     private StockRepository stockRepository;
@@ -49,7 +46,7 @@ class StockServiceTest {
         Long want = 99L;
 
         // when
-        stockService.decrease(stock.getId(), decreaseCount);
+        stockService1.decrease(stock.getId(), decreaseCount);
         Stock got = stockRepository.findById(stock.getId())
             .orElseThrow();
 
@@ -58,7 +55,7 @@ class StockServiceTest {
     }
 
     /**
-     * ! Race Condition 발생
+     * ! 동기화하지 않으면 Race Condition 발생
      * ? ExecutorService에 대해서
      * ? CountDownLatch에 대해서
      */
@@ -78,7 +75,7 @@ class StockServiceTest {
         for (int i = 0; i < threadCount; i++) {
             executorService.submit(() -> {
                 try {
-                    stockService.decrease(stock.getId(), decreaseCount);
+                    stockService1.decrease(stock.getId(), decreaseCount);
                 } finally {
                     latch.countDown();
                 }
