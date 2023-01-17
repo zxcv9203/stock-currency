@@ -17,9 +17,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class StockService3Test {
     @Autowired
-    private StockService2 stockService;
-
-    @Autowired
     private OptimisticLockStockFacade optimisticLockStockFacade;
     @Autowired
     private StockRepository stockRepository;
@@ -39,22 +36,6 @@ class StockService3Test {
     @AfterEach
     void after() {
         stockRepository.deleteAllInBatch();
-    }
-
-    @Test
-    @DisplayName("재고 감소가 잘되는지 테스트")
-    void stock_decrease() {
-        //given
-        Long decreaseCount = 1L;
-        Long want = 99L;
-
-        // when
-        stockService.decrease(stock.getId(), decreaseCount);
-        Stock got = stockRepository.findById(stock.getId())
-            .orElseThrow();
-
-        // then
-        assertThat(got.getQuantity()).isEqualTo(want);
     }
 
     @Test
